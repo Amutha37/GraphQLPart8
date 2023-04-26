@@ -29,7 +29,6 @@ This takes us to `Apollo Studio Explorer`
 ### $\color{cyan}{Exercises}$
 
  </summary>
-</details>
 
 `8.1:` The number of books and authors
 
@@ -44,3 +43,5 @@ This takes us to `Apollo Studio Explorer`
 `8.4:` Books of an author
 
 - Modify the allBooks query so that a user can give an optional parameter author. The response should include only books written by that author.
+
+</details>
