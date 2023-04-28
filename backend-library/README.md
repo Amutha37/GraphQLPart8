@@ -56,10 +56,16 @@ iii) author and genre
 
 `8.6:` Adding a book
 
-- Implement mutation addBook to add new book.
+- Implement mutation `addBook` to add new book.
 
-\*\*\* The mutation works even if the author is not already saved to the server or author data list.
+* The mutation works even if the author is not already saved to the server or author data list.
 
 - If the author is not yet saved to the server, a new author is added to the system. Born year will be null for now.
+
+`8.7:` Updating the birth year of an author
+
+- Implement mutation `editAuthor`, which will be used for changing the birth year or `born:` of the author.
+
+- If the author is not in the system, `null` is returned:
 
 </details>
