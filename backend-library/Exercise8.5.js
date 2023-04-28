@@ -47,7 +47,7 @@ let books = [
     published: 2008,
     author: 'Robert Martin',
     id: 'afa5b6f4-344d-11e9-a414-719c6709cf3e',
-    genres: ['refactoring'],
+    genres: ['refactoring', 'patterns'],
   },
   {
     title: 'Agile software development',
@@ -110,12 +110,13 @@ type Book {
   name: String!
 born:Int
 bookCounts: Int!
-titles: [String]
   id: ID!
   }
 
+
+
   type Query {  
-allBooks(genre:String!):[Book!]
+allBooks(author: String, genre: String,): [Book!]
 bookCount: Int!
 authorCount: Int!
    allAuthors: [Author!]!
@@ -124,58 +125,35 @@ authorCount: Int!
 
 const resolvers = {
   Query: {
-    allBooks: () => (root, args) => {
-      console.log('im here allbooks', args)
-
-      // const output = authors.map(({ name }) => {
-      const arr = []
-      const output = () => {
-        console.log('allbooks', args)
-        const genre = books.map((b) => {
-          b.includes(args.genre)
-          if (genre) {
-            console.log('b', {})
-            arr.push({ b })
-          }
-        })
-        console.log('arr', arr)
-        return arr
-        // })
+    allBooks: (root, args) => {
+      if (!args.genre && !args.author) {
+        return books
       }
 
-      return output
-      // return output
-      // const output = authors.map(({ name }) => {
-      // const output = () => {
-      //   if (args) {
-      //     const bookCounts = books.filter((b) => b.author === args.name)
-      //     return { args, bookCounts }
-      //   }
-      // }
-      // })
-      // const titles = []
-      // output.map(({ n }) => {
+      const genresCharacters = books.filter((book) => {
+        // check for genre only
+        if (!args.author && args.genre) {
+          return book.genres.includes(args.genre)
+        }
+        // check for author and genre
+        if (args.genre && args.author) {
+          if (book.author === args.author)
+            return book.genres.includes(args.genre)
+        }
+        // check for author only
+        if (!args.genre && args.author) {
+          return book.author === args.author
+        }
+      })
 
-      //   titles.push(n.title)
-      //   console.log('output', 'titles', titles, 'args', args, 'output', output)
-      //   return { args, titles }
-      // })
-      // return output
-      // const output = () => {
-      //   if (args.name) {
-      //     const booktitles = books.filter((b) => b.author === args.name)
-      //     const name = args.name
-      //     return { name, booktitles }
-      //   }
-      // }
+      return genresCharacters
     },
+
     bookCount: () => books.length,
     authorCount: () => authors.length,
     allAuthors: () => {
-      console.log('im here allAuthor')
       const output = authors.map(({ name }) => {
         const bookCounts = books.filter((b) => b.author === name).length
-        console.log('allauthors', 'bookcounts', bookCounts, 'name', name)
         return { name, bookCounts }
       })
       return output

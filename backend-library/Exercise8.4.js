@@ -110,7 +110,6 @@ type Book {
   name: String!
 born:Int
 bookCounts: Int!
-titles: [String]
   id: ID!
   }
 

@@ -44,4 +44,14 @@ This takes us to `Apollo Studio Explorer`
 
 - Modify the allBooks query so that a user can give an optional parameter author. The response should include only books written by that author.
 
+`8.5:` Books by genre
+
+- Modify the allBooks query so that a user can give an optional parameter genre or genre and author.
+
+Added only author as an option which will work similar to Exercise8.4
+
+i) genre
+ii) autor
+iii) author and genre
+
 </details>
