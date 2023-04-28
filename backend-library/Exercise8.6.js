@@ -1,5 +1,9 @@
 const { ApolloServer } = require('@apollo/server')
 const { startStandaloneServer } = require('@apollo/server/standalone')
+// GRAphql ISSUE ERROR MESSAGE
+const { GraphQLError } = require('graphql')
+// let the server create unique ID
+const { v1: uuid } = require('uuid')
 
 let authors = [
   {
@@ -47,7 +51,7 @@ let books = [
     published: 2008,
     author: 'Robert Martin',
     id: 'afa5b6f4-344d-11e9-a414-719c6709cf3e',
-    genres: ['refactoring'],
+    genres: ['refactoring', 'patterns'],
   },
   {
     title: 'Agile software development',
@@ -98,23 +102,40 @@ let books = [
 */
 
 const typeDefs = `
-type Book {
+
+type Mutation {
+  addBook(
+    author: String!
   title: String!
     published: Int
-    author: String!
+  genres: [String]
+  ): Book
+
+addAuthor(
+    name: String!
+  born: Int
+  ): Author
+
+}
+type Book {
+  author: String!
+  title: String!
+    published: Int
     genres: [String]
   id: ID!
   }
 
  type Author {
   name: String!
-  born: Int
+born:Int
 bookCounts: Int!
   id: ID!
   }
 
+
+
   type Query {  
-allBooks: [Book!]!
+allBooks(author: String, genre: String,): [Book!]
 bookCount: Int!
 authorCount: Int!
    allAuthors: [Author!]!
@@ -123,27 +144,75 @@ authorCount: Int!
 
 const resolvers = {
   Query: {
-    allBooks: () => books,
+    allBooks: (root, args) => {
+      if (!args.genre && !args.author) {
+        return books
+      }
+      // genre and author optional
+      const genresCharacters = books.filter((book) => {
+        // check for genre only
+        if (!args.author && args.genre) {
+          return book.genres.includes(args.genre)
+        }
+        // check for author and genre
+        if (args.genre && args.author) {
+          if (book.author === args.author)
+            return book.genres.includes(args.genre)
+        }
+        // check for author only
+        if (!args.genre && args.author) {
+          return book.author === args.author
+        }
+      })
+
+      return genresCharacters
+    },
+    // book count
     bookCount: () => books.length,
+    // author count
     authorCount: () => authors.length,
+    // all authors
     allAuthors: () => {
       const output = authors.map(({ name, born }) => {
         const bookCounts = books.filter((b) => b.author === name).length
         return { name, born, bookCounts }
       })
       return output
-      // console.log(output)
-      // authors.map((x) => {
-      //   console.log(`Visit ${x.name}`)
-      //   let authorCount = authors.map((author) => {
-      //     const filteredBooks = books.filter(
-      //       (book) => book.author === author.name
-      //     )
-      //     console.log('author', author, 'bcount', filteredBooks)
-      //     return { name: author.name, title: filteredBooks.title }
-      //   })
-      //   return authorCount.length
-      // })
+    },
+  },
+
+  // mutation
+
+  // adding new person of contact
+  Mutation: {
+    addBook: (root, args) => {
+      if (books.find((p) => p.title === args.title)) {
+        throw new GraphQLError('Title must be unique', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+            invalidArgs: args.author,
+          },
+        })
+      }
+
+      //  author is added in system from new book creation . I will  implement adding in server in later exercise
+      let countAut = authors.filter((p) => p.name == args.author).length
+
+      if (countAut === 0) {
+        const newAuthor = {
+          name: args.author,
+        }
+
+        const author = { ...newAuthor, id: uuid() }
+
+        authors = authors.concat(author)
+      }
+
+      // adding new books
+      const book = { ...args, id: uuid() }
+
+      books = books.concat(book)
+      return book
     },
   },
 }

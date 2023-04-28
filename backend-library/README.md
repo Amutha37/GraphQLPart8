@@ -54,4 +54,12 @@ i) genre
 ii) autor
 iii) author and genre
 
+`8.6:` Adding a book
+
+- Implement mutation addBook to add new book.
+
+\*\*\* The mutation works even if the author is not already saved to the server or author data list.
+
+- If the author is not yet saved to the server, a new author is added to the system. Born year will be null for now.
+
 </details>
