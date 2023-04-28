@@ -2,28 +2,6 @@
 
 GraphQL Part8a
 
-<details>
-<summary>
-
-### $\color{cyan}{Dependecies}$
-
- </summary>
-
-```
-npm install @apollo/server graphql
-```
-
-start server :
-
-```
-node Exercise(8.X).js
-```
-
-Apollo server runs in development mode `http://localhost:4000`
-
-This takes us to `Apollo Studio Explorer`
-
-</details>
 
 <details>
 <summary>
