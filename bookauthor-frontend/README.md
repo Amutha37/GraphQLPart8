@@ -1,4 +1,4 @@
-GraphQL Part8a
+GraphQL Part8b
 
 <details>
 <summary>
@@ -49,5 +49,11 @@ npm install styled-components
 `8.8:` Authors view
 
 - Implement view of to show details of all authors.
+
+`8.9:` Books view
+
+- Implement a Books view to show on a page all other details of all books except their genres.
+
+- Used redux-Toolkit to implement notification message to display the success of a book added and error message.
 
 </details>

@@ -1,59 +1,123 @@
 import { useState } from 'react'
 
-const NewBook = (props) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [published, setPublished] = useState('')
+// state management
+import { useField } from '../hooks'
+import { setNotification } from '../reducers/notificationReducer'
+import { useDispatch } from 'react-redux'
+
+import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import { useMutation } from '@apollo/client'
+import { CREATE_BOOK, ALL_BOOKS } from '../queries'
+
+const Button = styled.button`
+  background: Bisque;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 3px solid Chocolate;
+  border-radius: 3px;
+`
+
+const Input = styled.input`
+  margin: 0.25em;
+`
+const TomatoButton = styled(Button)`
+  background: tomato;
+`
+
+console.log('create...CREATE TO')
+
+const NewBook = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { reset: resetTitle, ...title } = useField('text')
+  const { reset: resetAuthor, ...author } = useField('text')
+  const { reset: resetPublished, ...published } = useField('text')
+
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
 
-  if (!props.show) {
-    return null
-  }
+  const [createBook] = useMutation(CREATE_BOOK, {
+    refetchQueries: [{ query: ALL_BOOKS }],
 
-  const submit = async (event) => {
+    onError: (error) => {
+      console.log('error', error)
+      const errors = error.graphQLErrors[0].extensions.error.errors
+      const messages = Object.values(errors)
+        .map((e) => e.message)
+        .join('\n')
+      console.log('messageul', messages)
+      // setError(messages)
+      dispatch(setNotification(`Error   : ${messages}`, 5))
+    },
+  })
+
+  // dispatch(setNotification(`Error: ${messages}`, 5))
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    console.log('add book...')
+    ///
 
-    setTitle('')
-    setPublished('')
-    setAuthor('')
+    const newBookDetails = {
+      author: author.value,
+      title: title.value,
+      published: Number(published.value),
+      genres: genres,
+    }
+
+    console.log('add book...', newBookDetails)
+
+    createBook({ variables: newBookDetails })
+
+    dispatch(
+      setNotification(`Added new book list  : ${newBookDetails.title}`, 5)
+    )
+
+    resetTitle()
+    resetAuthor()
+    resetPublished()
+
     setGenres([])
-    setGenre('')
+    navigate('/books')
   }
 
   const addGenre = () => {
     setGenres(genres.concat(genre))
-    setGenre('')
+
+    // setGenres('')
   }
+
+  const handleReset = (e) => {
+    e.preventDefault()
+    resetTitle()
+    resetAuthor()
+    resetPublished()
+  }
+
+  console.log('create...')
 
   return (
     <div>
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         <div>
-          title
-          <input
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-          />
+          Author :
+          <Input label='author' {...author} />
         </div>
         <div>
-          author
-          <input
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-          />
+          Title :
+          <Input label='title' {...title} />
         </div>
         <div>
-          published
-          <input
-            type='number'
-            value={published}
-            onChange={({ target }) => setPublished(target.value)}
-          />
+          Published :
+          <Input label='published' {...published} />
         </div>
+
+        {/* ADDING genres  */}
         <div>
+          Genre :
           <input
             value={genre}
             onChange={({ target }) => setGenre(target.value)}
@@ -62,8 +126,11 @@ const NewBook = (props) => {
             add genre
           </button>
         </div>
-        <div>genres: {genres.join(' ')}</div>
-        <button type='submit'>create book</button>
+
+        {genres && <div>Genres: {genres.join()}</div>}
+
+        <Button type='submit'>ADD </Button>
+        <TomatoButton Click={handleReset}>Reset</TomatoButton>
       </form>
     </div>
   )

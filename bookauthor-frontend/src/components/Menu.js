@@ -1,13 +1,13 @@
 import React from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-// import Notification from './Notification'
+import Notification from './Notification'
 import styled from 'styled-components'
 import Authors from './Authors'
 import Books from './Books'
 import NewBook from './NewBook'
 import Home from './Home'
 import Footer from './Footer'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const Page = styled.div`
   padding: 1em;
@@ -22,7 +22,7 @@ const Navigation = styled.div`
 `
 
 const Menu = () => {
-  // const notification = useSelector((state) => state.notification)
+  const notification = useSelector((state) => state.notification)
 
   return (
     <div id='nav_bar'>
@@ -44,7 +44,7 @@ const Menu = () => {
           </Link>
         </Navigation>
 
-        {/* {notification && <Notification />} */}
+        {notification && <Notification />}
 
         <Routes>
           <Route path='/' element={<Home />} />
