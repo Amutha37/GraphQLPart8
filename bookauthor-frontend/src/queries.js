@@ -10,16 +10,16 @@ export const ALL_AUTHORS = gql`
     }
   }
 `
-//   bookCounts
-// export const EDIT_BIRTH = gql`
-//   mutation editBirth($name: String!, $birth: Int!) {
-//     editBirth(name: $name, birth: $birth) {
-//       name
-//       born
-//       id
-//     }
-//   }
-// `
+//   Edit birt year
+export const EDIT_BIRTH = gql`
+  mutation editAuthor($name: String!, $born: Int) {
+    editAuthor(name: $name, born: $born) {
+      name
+      born
+      id
+    }
+  }
+`
 
 export const ALL_BOOKS = gql`
   query {
