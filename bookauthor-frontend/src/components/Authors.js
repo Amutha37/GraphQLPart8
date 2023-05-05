@@ -34,7 +34,7 @@ const Authors = () => {
       </table>
       {/* birth year change form  */}
 
-      <ChangeAuthorBirthYear />
+      <ChangeAuthorBirthYear authors={authors} />
     </div>
   )
 }

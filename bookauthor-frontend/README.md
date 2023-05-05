@@ -56,4 +56,20 @@ npm install styled-components
 
 - Used redux-Toolkit to implement notification message to display the success of a book added and error message.
 
+`8.10:` Adding a book
+
+- Implement a possibility to add new books.
+
+- Authors and Books views are kept up to date after a new book is added.
+
+`8.11:` Editing author's birth year
+
+- Implement a possibility to change and set authors birth year.
+
+- Form for changing of the year is on the same page as all authors list table.
+
+- Changes and instantly updated on authors list for view.
+
+- 8.12: Birst year can be changed only for existing authors using drop-down selectio box.
+
 </details>

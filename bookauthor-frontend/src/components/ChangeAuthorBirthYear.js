@@ -9,7 +9,9 @@ import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 
 import { EDIT_BIRTH } from '../queries'
+
 import styled from 'styled-components'
+import Select from 'react-select'
 
 const Button = styled.button`
   background: Bisque;
@@ -27,11 +29,12 @@ const TomatoButton = styled(Button)`
   background: tomato;
 `
 
-const ChangeAuthorBirthYear = () => {
+const ChangeAuthorBirthYear = (allAuthors) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [selectedAuthor, setSelectedAuthor] = useState(null)
 
-  const { reset: resetName, ...name } = useField('text')
+  // const { reset: resetName, ...name } = useField('text')
   const { reset: resetBirth, ...born } = useField('text')
 
   const [changeBirth, result] = useMutation(EDIT_BIRTH)
@@ -40,22 +43,34 @@ const ChangeAuthorBirthYear = () => {
     if ((result.data && result.data.editAuthor) === null) {
       dispatch(setNotification(`Person not found `, 5))
     }
-  }, [result.data, name]) // eslint-disable-line
+  }, [result.data]) // eslint-disable-line
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     const newBirthYear = {
-      name: name.value,
+      name: selectedAuthor,
       born: Number(born.value),
     }
 
     changeBirth({ variables: newBirthYear })
 
     navigate('/authors')
-
-    resetName()
     resetBirth()
+  }
+
+  // filter all authors
+  const options = []
+
+  allAuthors.authors.forEach((author) =>
+    options.push({
+      value: author.name,
+      label: author.name,
+    })
+  )
+
+  const handleChange = (e) => {
+    setSelectedAuthor(e.label)
   }
 
   return (
@@ -63,10 +78,12 @@ const ChangeAuthorBirthYear = () => {
       <h2>Change Birth Year</h2>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          Author :
-          <Input label='name' {...name} />
-        </div>
+        <Select
+          options={options}
+          onChange={handleChange}
+          label={selectedAuthor}
+        ></Select>
+
         <div>
           Published :
           <Input label='born' {...born} />
