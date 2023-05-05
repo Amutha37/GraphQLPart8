@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+
 import { useMutation } from '@apollo/client'
 import { CREATE_BOOK, ALL_BOOKS } from '../queries'
 
@@ -86,8 +87,7 @@ const NewBook = () => {
 
   const addGenre = () => {
     setGenres(genres.concat(genre))
-
-    // setGenres('')
+    setGenre('')
   }
 
   const handleReset = (e) => {

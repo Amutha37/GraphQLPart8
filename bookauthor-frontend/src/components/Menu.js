@@ -44,8 +44,6 @@ const Menu = () => {
           </Link>
         </Navigation>
 
-        {notification && <Notification />}
-
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/authors' element={<Authors />} />
@@ -54,6 +52,7 @@ const Menu = () => {
 
           <Route path='/create' element={<NewBook />} />
         </Routes>
+        {notification && <Notification />}
       </Page>
       <Footer />
     </div>

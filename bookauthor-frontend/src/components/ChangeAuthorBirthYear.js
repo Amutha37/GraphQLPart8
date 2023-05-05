@@ -38,9 +38,8 @@ const ChangeAuthorBirthYear = () => {
 
   useEffect(() => {
     if ((result.data && result.data.editAuthor) === null) {
-      dispatch(setNotification(`person not found : ${name.value}`, 5))
+      dispatch(setNotification(`Person not found `, 5))
     }
-    console.log('result data', name)
   }, [result.data, name]) // eslint-disable-line
 
   const handleSubmit = async (event) => {
@@ -61,7 +60,7 @@ const ChangeAuthorBirthYear = () => {
 
   return (
     <div>
-      <h2>change number</h2>
+      <h2>Change Birth Year</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -73,7 +72,7 @@ const ChangeAuthorBirthYear = () => {
           <Input label='born' {...born} />
         </div>
 
-        <button type='submit'>change birth year </button>
+        <TomatoButton type='submit'>Submit </TomatoButton>
       </form>
     </div>
   )
