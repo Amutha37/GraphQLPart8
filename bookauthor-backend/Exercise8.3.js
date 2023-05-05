@@ -127,23 +127,11 @@ const resolvers = {
     bookCount: () => books.length,
     authorCount: () => authors.length,
     allAuthors: () => {
-      const output = authors.map(({ name, born }) => {
+      const output = authors.map(({ name, born, id }) => {
         const bookCounts = books.filter((b) => b.author === name).length
-        return { name, born, bookCounts }
+        return { name, born, id, bookCounts }
       })
       return output
-      // console.log(output)
-      // authors.map((x) => {
-      //   console.log(`Visit ${x.name}`)
-      //   let authorCount = authors.map((author) => {
-      //     const filteredBooks = books.filter(
-      //       (book) => book.author === author.name
-      //     )
-      //     console.log('author', author, 'bcount', filteredBooks)
-      //     return { name: author.name, title: filteredBooks.title }
-      //   })
-      //   return authorCount.length
-      // })
     },
   },
 }
