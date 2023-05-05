@@ -33,7 +33,9 @@ This takes us to `Apollo Studio Explorer`
 `8.1:` The number of books and authors
 
 - Implement queries bookCount and authorCount which return the number of books and the number of authors.
-  `8.2:` All books
+
+`8.2:` All books
+
 - Implement query allBooks, which returns the details of all books.
 
 `8.3:` All authors
