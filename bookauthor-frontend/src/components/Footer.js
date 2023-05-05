@@ -9,7 +9,7 @@ const Footer = () => (
     <div>
       <i>Book List App, Department of Computer Science 2023</i>
     </div>
-    Blogs List App for Part8 -{' '}
+    Book List App for Part8 -{' '}
     <a href='https://fullstackopen.com/'>Full Stack Open</a>.
   </Footerr>
 )
