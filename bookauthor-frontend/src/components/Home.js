@@ -1,9 +1,8 @@
 import React from 'react'
 const Home = () => (
   <div className='container'>
-    <header>
-      <h2>Book List App</h2>
-    </header>
+    <h2>Book List App</h2>
+
     <p>
       {` Book List app to records of books.
 

@@ -7,6 +7,7 @@ import Books from './Books'
 import NewBook from './NewBook'
 import Home from './Home'
 import Footer from './Footer'
+import SampleFlex from './SampleFlex'
 import { useSelector } from 'react-redux'
 
 const Page = styled.div`
@@ -55,6 +56,7 @@ const Menu = () => {
         {notification && <Notification />}
       </Page>
       <Footer />
+      <SampleFlex />
     </div>
   )
 }

@@ -62,7 +62,7 @@ const ChangeAuthorBirthYear = (allAuthors) => {
   // filter all authors
   const options = []
 
-  allAuthors.authors.forEach((author) =>
+  allAuthors.allAuthors.forEach((author) =>
     options.push({
       value: author.name,
       label: author.name,

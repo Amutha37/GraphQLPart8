@@ -16,6 +16,7 @@ const Authors = () => {
   return (
     <div>
       <h2>Authors</h2>
+
       <table>
         <tbody>
           <tr>
@@ -34,7 +35,7 @@ const Authors = () => {
       </table>
       {/* birth year change form  */}
 
-      <ChangeAuthorBirthYear authors={authors} />
+      <ChangeAuthorBirthYear allAuthors={authors} />
     </div>
   )
 }
