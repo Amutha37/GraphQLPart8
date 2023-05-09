@@ -222,11 +222,12 @@ const resolvers = {
     },
     // Edit author
     editAuthor: (root, args) => {
-      const author = authors.find((p) => p.name === args.name)
+      // since only existing authors are displayed on drop down box the is no need for validation check
+      // const author = authors.find((p) => p.name === args.name)
 
-      if (!author) {
-        return null
-      }
+      // if (!author) {
+      //   return null
+      // }
 
       const updatedAuthor = { ...author, born: args.born }
       authors = authors.map((p) => (p.name === args.name ? updatedAuthor : p))
