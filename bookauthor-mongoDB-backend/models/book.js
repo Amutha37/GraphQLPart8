@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 // you must install this library
 const uniqueValidator = require('mongoose-unique-validator')
 
-const bookSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -21,6 +21,6 @@ const bookSchema = new mongoose.Schema({
   genres: [{ type: String }],
 })
 
-bookSchema.plugin(uniqueValidator)
+schema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('Book', bookSchema)
+module.exports = mongoose.model('Book', schema)

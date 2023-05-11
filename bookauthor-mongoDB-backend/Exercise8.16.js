@@ -1,6 +1,7 @@
 const { ApolloServer, UserInputError } = require('@apollo/server')
 const { startStandaloneServer } = require('@apollo/server/standalone')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 const Book = require('./models/book')
 const Author = require('./models/author')
 const User = require('./models/user')
@@ -124,6 +125,11 @@ let books = [
 */
 
 // small change instead of just leaving the author name now we will place the details of the Author from mongoDB exercises .
+// addAuthor(
+//     name: String!
+//   born: Int
+//   ): Author
+
 const typeDefs = `
 
 type Mutation {
@@ -134,10 +140,7 @@ type Mutation {
   genres: [String]
   ): Book
 
-addAuthor(
-    name: String!
-  born: Int
-  ): Author
+
 editAuthor(
     name: String!
     born: Int!
@@ -212,12 +215,6 @@ const resolvers = {
         return Book.find({ genres: { $in: args.genre } }).populate('author')
       }
     },
-    // author book counts
-    Author: {
-      bookCounts: async (root) => {
-        return books.filter((b) => String(b.author) === String(root.id)).length
-      },
-    },
 
     // book count
     bookCount: () => async () => Book.collection.countDocuments(),
@@ -236,6 +233,17 @@ const resolvers = {
     //   })
     //   return output
     // },
+  },
+
+  // author book counts
+  Author: {
+    bookCounts: async (root) => {
+      return books.filter((b) => String(b.author) === String(root.id)).length
+    },
+  },
+
+  me: (root, args, context) => {
+    return context.currentUser
   },
 
   // mutation
@@ -339,7 +347,7 @@ const resolvers = {
 
       if (!author) return null
 
-      author.born = args.setBornTo
+      author.born = args.born
 
       try {
         await author.save()
@@ -355,25 +363,39 @@ const resolvers = {
       favoriteGenre: args.favoriteGenre,
     })
 
+    // const user = new User({ ...args })
+
     return user.save().catch((error) => {
-      throw new UserInputError(error.message, {
-        invalidArgs: args,
+      throw new GraphQLError('Creating the user failed', {
+        extensions: {
+          code: 'BAD_USER_INPUT',
+          invalidArgs: args.name,
+          error,
+          // throw new UserInputError(error.message, {
+          //   invalidArgs: args,
+          // })
+        },
       })
     })
   },
   login: async (root, args) => {
     const user = await User.findOne({ username: args.username })
 
-    if (!user || args.password !== PASSWORD) {
-      throw new UserInputError('wrong credentials')
+    if (!user || args.password !== 'secret') {
+      throw new GraphQLError('wrong credentials', {
+        extensions: { code: 'BAD_USER_INPUT' },
+      })
     }
+    // if (!user || args.password !== PASSWORD) {
+    //   throw new UserInputError('wrong credentials')
+    // }
 
     const userForToken = {
       username: user.username,
       id: user._id,
     }
 
-    return { value: jwt.sign(userForToken, JWT_SECRET) }
+    return { value: jwt.sign(userForToken, process.env.JWT_SECRET) }
   },
 }
 

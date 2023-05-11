@@ -21,6 +21,14 @@ npm install mongoose
 npm install mongoose-unique-validator
 ```
 
+```
+npm install mongoose dotenv
+```
+
+```
+npm install jsonwebtoken
+```
+
 start server :
 
 ```
@@ -40,44 +48,20 @@ This takes us to `Apollo Studio Explorer`
 
  </summary>
 
-`8.1:` The number of books and authors
+`8.13:` Database, part 1
 
-- Implement queries bookCount and authorCount which return the number of books and the number of authors.
+- Add mongoose schema for `books` and `authors` so that it saves the data to a MongoDB database.
 
-`8.2:` All books
+`8.14:` Database, part 2
 
 - Implement query allBooks, which returns the details of all books.
 
-`8.3:` All authors
+`8.15:` Database, part 3
 
-- Implement query allAuthors, which returns the details of all authors. The response should include a field bookCount containing the number of books the author has written.
+- Complete the program so that database validation errors (e.g. book title or author name being too short) are handled sensibly. This means that they cause GraphQLError with a suitable error message to be thrown.
 
-`8.4:` Books of an author
+`8.16:` user and logging in
 
-- Modify the allBooks query so that a user can give an optional parameter author. The response should include only books written by that author.
-
-`8.5:` Books by genre
-
-- Modify the allBooks query so that a user can give an optional parameter genre or genre and author.
-
-Added only author as an option which will work similar to Exercise8.4
-
-i) genre
-ii) autor
-iii) author and genre
-
-`8.6:` Adding a book
-
-- Implement mutation `addBook` to add new book.
-
-* The mutation works even if the author is not already saved to the server or author data list.
-
-- If the author is not yet saved to the server, a new author is added to the system. Born year will be null for now.
-
-`8.7:` Updating the birth year of an author
-
-- Implement mutation `editAuthor`, which will be used for changing the birth year or `born:` of the author.
-
-- If the author is not in the system, `null` is returned:
+- Implement user management to your application. Expand the schema .
 
 </details>
