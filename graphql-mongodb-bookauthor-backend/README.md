@@ -71,3 +71,28 @@ iii) author and genre
 - If the author is not in the system, `null` is returned:
 
 </details>
+
+# MongoDB database
+
+<details>
+<summary>
+
+### $\color{cyan}{Exercises 8.13 - 8.16}$
+
+ </summary>
+
+`8.13:` Database, part 1
+
+- Library application so that it saves the data to a database
+
+`8.14:` Database, part 2
+
+- Complete the program so that all queries (to get allBooks working with the parameter author and bookCount field of an author object is not required) and mutations work.
+
+`8.15:` Database, part 3
+
+- Database validation errors (e.g. book title or author name being too short) are handled sensibly. Use `GraphQLError` with a suitable error message to be thrown.
+
+* Added validation for published year and year born.
+
+</details>

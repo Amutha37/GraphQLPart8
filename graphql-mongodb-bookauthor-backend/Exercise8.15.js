@@ -143,16 +143,7 @@ editAuthor(
     born: Int
   ): Author
 
-createUser(
-    username: String!
-    favoriteGenre: String!
-  ): User
-  login(
-    username: String!
-    password: String!
-  ): Token
 }
-
 type Book {
   author: Author!
   title: String!
@@ -168,22 +159,13 @@ bookCounts: Int!
   id: ID!
   }
 
-type User {
-  username: String!
-  favoriteGenre: String!
-  id: ID!
-}
 
-type Token {
-  value: String!
-}
 
   type Query {  
 allBooks(author: String, genre: String,): [Book!]
  allAuthors: [Author!]!
 bookCount: Int!
 authorCount: Int!
-  me: User
 }
 `
 
