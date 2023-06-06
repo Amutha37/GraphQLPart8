@@ -181,7 +181,7 @@ const resolvers = {
     allAuthors: () => {
       const output = authors.map(({ name, born, id }) => {
         const bookCounts = books.filter((b) => b.author === name).length
-        return { name, born, id, bookCounts }
+        return { name, born, bookCounts, id }
       })
       return output
     },
@@ -229,8 +229,9 @@ const resolvers = {
       //   return null
       // }
 
-      const updatedAuthor = { ...author, born: args.born }
+      const updatedAuthor = { ...args, born: args.born }
       authors = authors.map((p) => (p.name === args.name ? updatedAuthor : p))
+      console.log('authors beckend', authors)
       return updatedAuthor
     },
   },
