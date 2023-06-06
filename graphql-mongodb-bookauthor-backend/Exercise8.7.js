@@ -1,3 +1,5 @@
+// ! This exercise will not run due to in book schema author now changed to object of author
+
 const { ApolloServer } = require('@apollo/server')
 const { startStandaloneServer } = require('@apollo/server/standalone')
 // GRAphql ISSUE ERROR MESSAGE
@@ -179,11 +181,11 @@ const resolvers = {
     authorCount: () => authors.length,
     // all authors
     allAuthors: () => {
-      const output = authors.map(({ name, born, id }) => {
+      const authors = authors.map(({ name, born, id }) => {
         const bookCounts = books.filter((b) => b.author === name).length
-        return { name, born, id, bookCounts }
+        return { name, born, bookCounts, id }
       })
-      return output
+      return authors
     },
   },
 
@@ -192,6 +194,7 @@ const resolvers = {
   // adding new person of contact
   Mutation: {
     addBook: (root, args) => {
+      console.log('args', args)
       if (books.find((p) => p.title === args.title)) {
         throw new GraphQLError('Title must be unique', {
           extensions: {
@@ -207,6 +210,7 @@ const resolvers = {
       if (countAut === 0) {
         const newAuthor = {
           name: args.author,
+          born: 0,
         }
 
         const author = { ...newAuthor, id: uuid() }
@@ -218,6 +222,7 @@ const resolvers = {
       const book = { ...args, id: uuid() }
 
       books = books.concat(book)
+      console.log('books', books)
       return book
     },
     // Edit author

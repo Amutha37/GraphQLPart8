@@ -240,6 +240,7 @@ const resolvers = {
       // checking for current user
       const currentUser = context.currentUser
       console.log('currentUser', currentUser)
+
       if (!currentUser) {
         throw new GraphQLError('not authenticated', {
           extensions: {
@@ -264,25 +265,18 @@ const resolvers = {
         )
       }
 
-      if (!authorFound) {
-        authorFound = new Author({ name: args.author, born: 0 })
+      //  book length validation check
 
-        const author = authorFound
-
-        try {
-          await author.save()
-        } catch (error) {
-          throw new GraphQLError(
-            `Saving author error "$
-{error}`,
-            {
-              extensions: {
-                code: 'BAD_USER_INPUT',
-                invalidArgs: args.author.error,
-              },
-            }
-          )
-        }
+      if (args.title.length < 5) {
+        throw new GraphQLError(
+          'Book title  is too short minimum length should be 5.',
+          {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+              invalidArgs: args.title,
+            },
+          }
+        )
       }
 
       // validate year
@@ -302,6 +296,40 @@ const resolvers = {
         )
       }
 
+      if (!authorFound) {
+        // author length validation check
+
+        if (args.author.length < 4) {
+          throw new GraphQLError(
+            'Author name is too short minimum length should be 4.',
+            {
+              extensions: {
+                code: 'BAD_USER_INPUT',
+                invalidArgs: args.author,
+              },
+            }
+          )
+        }
+
+        authorFound = new Author({ name: args.author, born: 0 })
+
+        const author = authorFound
+
+        try {
+          await author.save()
+        } catch (error) {
+          throw new GraphQLError(
+            `Saving author error "$
+{error}`,
+            {
+              extensions: {
+                code: 'BAD_USER_INPUT',
+                invalidArgs: args.author.error,
+              },
+            }
+          )
+        }
+      }
       // adding new books
 
       const book = new Book({ ...args, author: authorFound })
@@ -435,9 +463,7 @@ startStandaloneServer(server, {
     const auth = req ? req.headers.authorization : null
     if (auth && auth.startsWith('Bearer ')) {
       const decodedToken = jwt.verify(auth.substring(7), process.env.JWT_SECRET)
-      const currentUser = await User.findById(decodedToken.id).populate(
-        'friends'
-      )
+      const currentUser = await User.findById(decodedToken.id)
       console.log('currentUser', currentUser)
       return { currentUser }
     }

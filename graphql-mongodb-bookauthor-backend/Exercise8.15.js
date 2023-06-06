@@ -134,7 +134,7 @@ type Mutation {
   addBook(
     author: String!
   title: String!
-    published: Int
+    published: Int!
   genres: [String]
   ): Book
 
@@ -229,7 +229,52 @@ const resolvers = {
         )
       }
 
+      //  book length validation check
+
+      if (args.title.length < 5) {
+        throw new GraphQLError(
+          'Book title  is too short minimum length should be 5.',
+          {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+              invalidArgs: args.title,
+            },
+          }
+        )
+      }
+
+      // validate year
+
+      const currentYear = new Date().getFullYear()
+      const yearValidation = currentYear - args.published
+
+      if (yearValidation < 0) {
+        throw new GraphQLError(
+          'Invalid published year, check the validity of the published year.',
+          {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+              invalidArgs: args.name,
+            },
+          }
+        )
+      }
+
       if (!authorFound) {
+        // author length validation check
+
+        if (args.author.length < 4) {
+          throw new GraphQLError(
+            'Author name is too short minimum length should be 4.',
+            {
+              extensions: {
+                code: 'BAD_USER_INPUT',
+                invalidArgs: args.author,
+              },
+            }
+          )
+        }
+
         authorFound = new Author({ name: args.author, born: 0 })
 
         const author = authorFound
@@ -248,23 +293,6 @@ const resolvers = {
             }
           )
         }
-      }
-
-      // validate year
-
-      const currentYear = new Date().getFullYear()
-      const yearValidation = currentYear - args.published
-
-      if (yearValidation < 0) {
-        throw new GraphQLError(
-          'Invalid published year, check the validity of the published year.',
-          {
-            extensions: {
-              code: 'BAD_USER_INPUT',
-              invalidArgs: args.name,
-            },
-          }
-        )
       }
 
       // adding new books

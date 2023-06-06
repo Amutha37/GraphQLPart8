@@ -1,4 +1,8 @@
-GraphQL Part8a
+
+<h1 align="center"> $\textcolor{orange}{GraphQL Project}$
+</h1>
+
+# $\color{cyan}{Part8a}$
 
 <details>
 <summary>
@@ -9,6 +13,22 @@ GraphQL Part8a
 
 ```
 npm install @apollo/server graphql
+```
+
+```
+npm install mongoose
+```
+
+```
+npm install mongoose-unique-validator
+```
+
+```
+npm install mongoose dotenv
+```
+
+```
+npm install jsonwebtoken
 ```
 
 start server :

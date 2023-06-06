@@ -258,8 +258,10 @@ const resolvers = {
       }
 
       // adding new books
+      let newAuthorFound = await Author.findOne({ name: args.author })
 
-      const book = new Book({ ...args, author: authorFound })
+      const book = new Book({ ...args, author: newAuthorFound })
+
       console.log('book', book, 'authorFound', authorFound)
       try {
         await book.save()
@@ -278,7 +280,7 @@ const resolvers = {
     editAuthor: (root, args) => {
       // since only existing authors are displayed on drop down box the is no need for validation check
 
-      const updatedAuthor = { ...author, born: args.born }
+      const updatedAuthor = { ...args, born: args.born }
       authors = authors.map((p) => (p.name === args.name ? updatedAuthor : p))
       return updatedAuthor
     },
