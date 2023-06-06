@@ -1,16 +1,23 @@
 import React from 'react'
-
 import { useQuery } from '@apollo/client'
-
 import { ALL_BOOKS } from '../queries'
 
 const Books = () => {
+  // const Books = (props) => {
+
   const result = useQuery(ALL_BOOKS)
+
+  if (!result) return null
+
+  // if (!props.show) {
+  //   return null
+  // }
 
   if (result.loading) {
     return <div id='loading'>loading...</div>
   }
 
+  console.log('result BOOKS', result)
   const books = result.data.allBooks
 
   return (
@@ -33,6 +40,14 @@ const Books = () => {
           ))}
         </tbody>
       </table>
+      {/* <div>
+        <h4>Genres</h4>
+        {uniqueGenres.map((genre) => (
+          <button key={genre} onClick={() => handleSelectedGenre(genre)}>
+            {genre}
+          </button>
+        ))}
+      </div> */}
     </div>
   )
 }

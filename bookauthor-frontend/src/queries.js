@@ -6,17 +6,6 @@ export const ALL_AUTHORS = gql`
       name
       born
       bookCounts
-      id
-    }
-  }
-`
-//   Edit birt year
-export const EDIT_BIRTH = gql`
-  mutation editAuthor($name: String!, $born: Int) {
-    editAuthor(name: $name, born: $born) {
-      name
-      born
-      id
     }
   }
 `
@@ -28,24 +17,20 @@ export const ALL_BOOKS = gql`
       title
       published
       genres
-      id
     }
   }
 `
 
-// export const FIND_PERSON = gql`
-//   query findPersonByName($nameToSearch: String!) {
-//     findPerson(name: $nameToSearch) {
-//       name
-//       phone
-//       id
-//       address {
-//         street
-//         city
-//       }
-//     }
-//   }
-// `
+//   Edit birt year
+export const EDIT_BIRTH = gql`
+  mutation editAuthor($name: String!, $born: Int) {
+    editAuthor(name: $name, born: $born) {
+      name
+      born
+    }
+  }
+`
+
 // check genres need []
 export const CREATE_BOOK = gql`
   mutation createBook(
@@ -63,7 +48,6 @@ export const CREATE_BOOK = gql`
       author
       title
       published
-      id
       genres
     }
   }

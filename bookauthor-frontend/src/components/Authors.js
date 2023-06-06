@@ -1,16 +1,18 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_AUTHORS } from '../queries'
-
 import ChangeAuthorBirthYear from './ChangeAuthorBirthYear'
 
+// const Authors = (token) => {
+
 const Authors = () => {
+  // const Authors = (props) => {
   const result = useQuery(ALL_AUTHORS)
 
   if (result.loading) {
     return <div id='loading'>loading...</div>
   }
-
+  console.log('authors result', result)
   const authors = result.data.allAuthors
 
   return (
@@ -20,9 +22,9 @@ const Authors = () => {
       <table>
         <tbody>
           <tr>
-            <th></th>
-            <th>born</th>
-            <th>books</th>
+            <th>Author</th>
+            <th>Born</th>
+            <th>Books</th>
           </tr>
           {authors.map((a) => (
             <tr key={a.name}>
@@ -34,7 +36,7 @@ const Authors = () => {
         </tbody>
       </table>
       {/* birth year change form  */}
-
+      {/* {token && <ChangeAuthorBirthYear allAuthors={authors} />} */}
       <ChangeAuthorBirthYear allAuthors={authors} />
     </div>
   )

@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useField } from '../hooks'
 import { useMutation } from '@apollo/client'
-
-import { useNavigate } from 'react-router-dom'
+import { ALL_AUTHORS } from '../queries'
 
 // state management
 import { setNotification } from '../reducers/notificationReducer'
@@ -30,20 +29,18 @@ const TomatoButton = styled(Button)`
 `
 
 const ChangeAuthorBirthYear = (allAuthors) => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [selectedAuthor, setSelectedAuthor] = useState(null)
 
-  // const { reset: resetName, ...name } = useField('text')
   const { reset: resetBirth, ...born } = useField('text')
 
-  const [changeBirth, result] = useMutation(EDIT_BIRTH)
-
-  useEffect(() => {
-    if ((result.data && result.data.editAuthor) === null) {
-      dispatch(setNotification(`Person not found `, 5))
-    }
-  }, [result.data]) // eslint-disable-line
+  const [changeBirth] = useMutation(EDIT_BIRTH, {
+    refetchQueries: [{ query: ALL_AUTHORS }],
+    onError: (error) => {
+      const messages = error.graphQLErrors[0].message
+      dispatch(setNotification(`Author born date error ${messages} `, 5))
+    },
+  })
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -55,10 +52,10 @@ const ChangeAuthorBirthYear = (allAuthors) => {
 
     changeBirth({ variables: newBirthYear })
 
-    navigate('/authors')
     resetBirth()
   }
 
+  console.log('allAuthors', allAuthors)
   // filter all authors
   const options = []
 
@@ -85,7 +82,7 @@ const ChangeAuthorBirthYear = (allAuthors) => {
         ></Select>
 
         <div>
-          Published :
+          Year Born :
           <Input label='born' {...born} />
         </div>
 
