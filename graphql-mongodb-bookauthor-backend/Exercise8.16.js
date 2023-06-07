@@ -63,7 +63,7 @@ let authors = [
 
 /*
  * Suomi:
- * Saattaisi olla järkevämpää assosioida kirja ja sen tekijä tallettamalla kirjan yhteyteen tekijän nimen sijaan tekijän id
+ * Saattaisi olla järkevämpää assosioida kirja ja sen tekijä tcettamalla kirjan yhteyteen tekijän nimen sijaan tekijän id
  * Yksinkertaisuuden vuoksi tallennamme kuitenkin kirjan yhteyteen tekijän nimen
  *
  * English:
@@ -237,18 +237,12 @@ const resolvers = {
 
   Mutation: {
     addBook: async (root, args, context) => {
-      // checking for current user
+      //  checking for current user
       const currentUser = context.currentUser
       console.log('currentUser', currentUser)
 
-      if (!currentUser) {
-        throw new GraphQLError('not authenticated', {
-          extensions: {
-            code: 'BAD_USER_INPUT',
-          },
-        })
-      }
-      // adding new book of contact
+      console.log('args', args)
+      //  author is added in system from new book creation . I will  implement adding in server in later exercise
       let authorFound = await Author.findOne({ name: args.author })
 
       let bookFound = await Book.findOne({ title: args.title })
@@ -297,8 +291,6 @@ const resolvers = {
       }
 
       if (!authorFound) {
-        // author length validation check
-
         if (args.author.length < 4) {
           throw new GraphQLError(
             'Author name is too short minimum length should be 4.',
@@ -330,9 +322,11 @@ const resolvers = {
           )
         }
       }
-      // adding new books
 
-      const book = new Book({ ...args, author: authorFound })
+      // adding new books
+      let newAuthorFound = await Author.findOne({ name: args.author })
+
+      const book = new Book({ ...args, author: newAuthorFound })
 
       try {
         await book.save()
@@ -347,6 +341,86 @@ const resolvers = {
       }
       return book
     },
+    //     addBook: async (root, args, context) => {
+    //       // checking for current user
+    //       const currentUser = context.currentUser
+    //       console.log('currentUser', currentUser)
+
+    //       if (!currentUser) {
+    //         throw new GraphQLError('not authenticated', {
+    //           extensions: {
+    //             code: 'BAD_USER_INPUT',
+    //           },
+    //         })
+    //       }
+    //       // adding new book of contact
+    //       let authorFound = await Author.findOne({ name: args.author })
+
+    //       let bookFound = await Book.findOne({ title: args.title })
+
+    //       if (bookFound) {
+    //         throw new GraphQLError(
+    //           'This book already exist make sure title is unique',
+    //           {
+    //             extensions: {
+    //               code: 'BAD_USER_INPUT',
+    //               invalidArgs: args.author,
+    //             },
+    //           }
+    //         )
+    //       }
+
+    //       if (!authorFound) {
+    //         // author length validation check
+
+    //         if (args.author.length < 4) {
+    //           throw new GraphQLError(
+    //             'Author name is too short minimum length should be 4.',
+    //             {
+    //               extensions: {
+    //                 code: 'BAD_USER_INPUT',
+    //                 invalidArgs: args.author,
+    //               },
+    //             }
+    //           )
+    //         }
+
+    //         authorFound = new Author({ name: args.author, born: 0 })
+
+    //         const author = authorFound
+
+    //         try {
+    //           await author.save()
+    //         } catch (error) {
+    //           throw new GraphQLError(
+    //             `Saving author error "$
+    // {error}`,
+    //             {
+    //               extensions: {
+    //                 code: 'BAD_USER_INPUT',
+    //                 invalidArgs: args.author.error,
+    //               },
+    //             }
+    //           )
+    //         }
+    //       }
+    //       // adding new books
+
+    //       const book = new Book({ ...args, author: authorFound })
+
+    //       try {
+    //         await books.save()
+    //       } catch (error) {
+    //         throw new GraphQLError('Saving book failed', {
+    //           extensions: {
+    //             code: 'BAD_USER_INPUT',
+    //             invalidArgs: args.name,
+    //             error,
+    //           },
+    //         })
+    //       }
+    //       return book
+    //     },
 
     // Edit author
     editAuthor: async (root, args, context) => {
