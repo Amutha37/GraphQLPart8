@@ -4,7 +4,7 @@ import Notification from './Notification'
 import styled from 'styled-components'
 import Authors from './Authors'
 import Books from './Books'
-import NewBook from './NewBook'
+import AddNewBookForm from './AddNewBookForm'
 import Home from './Home'
 import Footer from './Footer'
 
@@ -48,7 +48,7 @@ const Menu = () => {
 
   return (
     <div id='nav_bar'>
-      <button onClick={logout}>logout</button>
+      {/* <button onClick={logout}>logout</button> */}
       <Page>
         <Navigation>
           <Link className='link' to='/'>
@@ -66,20 +66,22 @@ const Menu = () => {
             Add Book
           </Link>
         </Navigation>
+
+        {notification && <Notification />}
+
         <button id='logOut' onClick={logout}>
           Log Out
         </button>
+
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/authors' element={<Authors />} />
 
           <Route path='/books' element={<Books />} />
 
-          <Route path='/create' element={<NewBook />} />
+          <Route path='/create' element={<AddNewBookForm />} />
           {/* <Route onClick={logout} /> */}
         </Routes>
-
-        {notification && <Notification />}
       </Page>
       <Footer />
       <SampleFlex />

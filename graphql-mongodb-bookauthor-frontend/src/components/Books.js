@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client'
 import { ALL_BOOKS } from '../queries'
 
 const Books = () => {
-  const [selectedGenre, setSelectedGenre] = useState('all')
+  const [selectedGenre, setSelectedGenre] = useState('All Genres')
   const [filteredByGenreBooks, setFilteredByGenreBooks] = useState([])
   const result = useQuery(ALL_BOOKS)
 
@@ -20,7 +20,7 @@ const Books = () => {
 
   // collect all the unique genres
 
-  let allGenres = books.flatMap((b) => b.genres).concat('all')
+  let allGenres = books.flatMap((b) => b.genres).concat('All Genres')
   //  collect unique genre from the list allgenres
   let uniqueGenres = [...new Set(allGenres)]
 
@@ -36,7 +36,7 @@ const Books = () => {
     )
   }
 
-  let bookList = selectedGenre === 'all' ? books : filteredByGenreBooks
+  let bookList = selectedGenre === 'All Genres' ? books : filteredByGenreBooks
 
   return (
     <div>
@@ -58,8 +58,8 @@ const Books = () => {
           ))}
         </tbody>
       </table>
-      <div>
-        <h4>Genres</h4>
+      <div id='genresList'>
+        <h4>View by Genre</h4>
         {uniqueGenres.map((genre) => (
           <button key={genre} onClick={() => handleSelectedGenre(genre)}>
             {genre}

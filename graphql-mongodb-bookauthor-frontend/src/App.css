@@ -84,3 +84,14 @@ button {
 form {
   margin-top: 2rem;
 }
+
+#genresList button {
+  margin-left: 5px;
+  background-color: green;
+  color: Yellow;
+}
+
+/* #message {
+  position: absolute;
+  top: 50%;
+} */

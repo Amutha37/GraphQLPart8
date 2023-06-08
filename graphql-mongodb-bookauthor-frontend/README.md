@@ -33,7 +33,19 @@ npm install @apollo/client graphql
 Others
 
 ```
+npm install react-redux
+```
+
+```
+npm install @reduxjs/toolkit
+```
+
+```
 npm install react-router-dom
+```
+
+```
+npm i --save react-select
 ```
 
 ```
@@ -73,6 +85,28 @@ npm install styled-components
 
 - Changes and instantly updated on authors list for view.
 
-- 8.12: Birst year can be changed only for existing authors using drop-down selectio box.
+`8.12:` Changing birth year
+
+- Birth year can be changed only for existing authors using drop-down selectio box.
+
+\*\* Continue of fronend after implementing database for backend
+
+`8.17` Listing books
+
+- Make the fronend now to work on listing books
+
+`8.18` Log in
+
+- Implement adding new books and changing the birth year of an author as they requires a user to be logged in.
+
+- User interface can be implemented for selection or navigating between selection.
+
+`8.19` Books by genre, part 1
+
+- Implement filtering of the book by genre selection.
+
+`8.20` Books by genre, part 2
+
+- Implement a view which shows all the books based on the logged-in user's favourite genre.
 
 </details>

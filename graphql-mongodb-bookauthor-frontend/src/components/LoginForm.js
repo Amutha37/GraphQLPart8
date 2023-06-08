@@ -36,7 +36,7 @@ const LoginForm = ({ setToken }) => {
     event.preventDefault()
 
     login({ variables: { username, password } })
-    console.log('login', login)
+
     navigate('/books')
   }
   const logout = () => {

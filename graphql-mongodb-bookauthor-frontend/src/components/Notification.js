@@ -15,6 +15,8 @@ const Notification = () => {
     width: 800,
     marginRight: 'auto',
     marginLeft: 'auto',
+    position: 'absolute',
+    top: '50%',
   }
   return <div style={style}>{notification}</div>
 }

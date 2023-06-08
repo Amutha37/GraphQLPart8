@@ -48,7 +48,11 @@ export const CREATE_BOOK = gql`
       published: $published
       genres: $genres
     ) {
-      author
+      author {
+        name
+        born
+      }
+      title
       title
       published
       genres
