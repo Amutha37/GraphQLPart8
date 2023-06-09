@@ -138,7 +138,7 @@ type Mutation {
     author: String!
   title: String!
     published: Int
-  genres: [String]
+  genres: [String!]!
   ): Book
 
 editAuthor(
@@ -148,7 +148,7 @@ editAuthor(
 
 createUser(
     username: String!
-    favoriteGenre: String!
+    favouriteGenre: String!
   ): User
   login(
     username: String!
@@ -173,7 +173,7 @@ bookCounts: Int!
 
 type User {
   username: String!
-  favoriteGenre: String!
+  favouriteGenre: String
   id: ID!
 }
 
@@ -186,7 +186,7 @@ allBooks(author: String, genre: String,): [Book!]
  allAuthors: [Author!]!
 bookCount: Int!
 authorCount: Int!
-  me: User
+  me:  User!
 }
 `
 
@@ -495,7 +495,38 @@ const resolvers = {
     //  create user and login
 
     createUser: async (root, args) => {
-      const user = new User({ username: args.username })
+      if (!args.username || !args.favouriteGenre) {
+        throw new GraphQLError(
+          'invalid username or favourite genre should be entered.',
+          {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+              invalidArgs: args.title,
+            },
+          }
+        )
+      }
+
+      // check user exist
+
+      const userFound = await User.findOne({ username: args.username })
+
+      if (userFound) {
+        throw new GraphQLError(
+          'This user  already exist make sure title is unique',
+          {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+              invalidArgs: args.author,
+            },
+          }
+        )
+      }
+
+      const user = new User({
+        username: args.username,
+        favouriteGenre: args.favouriteGenre,
+      })
 
       return user.save().catch((error) => {
         throw new GraphQLError('Creating the user failed', {
