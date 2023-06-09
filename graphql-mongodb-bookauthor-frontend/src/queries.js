@@ -60,16 +60,16 @@ export const CREATE_BOOK = gql`
   }
 `
 
+// Define a mutation for logging in:
+
 export const USER = gql`
   query {
     me {
       username
-      favoriteGenre
+      favouriteGenre
     }
   }
 `
-
-// Define a mutation for logging in:
 
 export const LOGIN = gql`
   mutation login($username: String!, $password: String!) {

@@ -110,3 +110,13 @@ npm install styled-components
 - Implement a view which shows all the books based on the logged-in user's favourite genre.
 
 </details>
+
+<details>
+<summary>
+
+### $\color{cyan}{Recommeded Readings}$
+
+ </summary>
+https://www.smashingmagazine.com/2021/11/graphql-frontend-react-apollo/
+
+</details>

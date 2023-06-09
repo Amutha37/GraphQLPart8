@@ -37,25 +37,14 @@ const AddNewBookForm = () => {
 
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([''])
-  const [showErr, setShowErr] = useState(false)
 
   const [createBook] = useMutation(CREATE_BOOK, {
     refetchQueries: [{ query: ALL_BOOKS, ALL_AUTHORS }],
     onError: (error) => {
       console.log('Error', error)
-      const errors = error.graphQLErrors[0]
 
-      dispatch(
-        setNotification(`Invalid title and author length and year: ${error}`, 5)
-      )
+      dispatch(setNotification(`ERROR: ${error}`, 5))
       navigate('/create')
-
-      // const messages = Object.values(errors)
-      //   .map((e) => e.message)
-      //   .join('\n')
-      // console.log('messageul', messages)
-      // setError(messages)
-      // dispatch(setNotification(`Error adding book  : ${error}`, 5))
     },
     update: (cache, response) => {
       console.log('response', response)
@@ -64,53 +53,18 @@ const AddNewBookForm = () => {
           allBooks: allBooks.concat(response.data.addBook),
         }
       })
+
+      dispatch(setNotification(`New book list successfully added.`, 5))
       navigate('/books')
+      resetTitle()
+      resetAuthor()
+      resetPublished()
+      setGenres([])
     },
   })
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
-    //  book length validation check
-    // console.log('title', title.value, title.value.length)
-    // if (title.value.length < 5) return setShowErr(!showErr)
-
-    // dispatch(
-    //   setNotification(
-    //     `Book title  is too short minimum length should be 5.  : ${title.value}`,
-    //     5
-    //   )
-    // )
-
-    console.log('im here  title check2', `${!showErr}`)
-    // validate year
-
-    const currentYear = new Date().getFullYear()
-    const yearValidation = currentYear - published.value
-
-    if (yearValidation < 0) {
-      console.log('im here  year check')
-      setShowErr(!showErr)
-      console.log('im here  year check', `${showErr}`)
-      dispatch(
-        setNotification(
-          `Invalid published year, check the validity of the published year.  : ${title.value}`,
-          5
-        )
-      )
-    }
-
-    if (author.value.length < 4) {
-      setShowErr(!showErr)
-      console.log('im here  author check', `${showErr}`)
-      dispatch(
-        setNotification(
-          `Author name  is too short minimum length should be 4.  : ${author.value}`,
-          5
-        )
-      )
-    }
-    if (showErr) return navigate('/create')
 
     const newBookDetails = {
       author: author.value,
@@ -122,15 +76,6 @@ const AddNewBookForm = () => {
     console.log('ADD BOOK...', newBookDetails)
 
     createBook({ variables: newBookDetails })
-
-    dispatch(
-      setNotification(`Added new book list  : ${newBookDetails.title}`, 5)
-    )
-
-    resetTitle()
-    resetAuthor()
-    resetPublished()
-    setGenres([])
   }
 
   const addGenre = () => {

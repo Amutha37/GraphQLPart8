@@ -90,8 +90,14 @@ form {
   background-color: green;
   color: Yellow;
 }
+#logout {
+  color: red;
+}
 
-/* #message {
-  position: absolute;
-  top: 50%;
-} */
+#login {
+  color: blue;
+}
+#favour {
+  font-weight: 700;
+  color: green;
+}

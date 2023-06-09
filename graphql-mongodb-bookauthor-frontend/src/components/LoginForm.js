@@ -4,7 +4,6 @@ import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 import { LOGIN } from '../queries'
 import { useNavigate } from 'react-router-dom'
-import { useApolloClient } from '@apollo/client'
 
 const LoginForm = ({ setToken }) => {
   const [username, setUsername] = useState('')
@@ -12,15 +11,11 @@ const LoginForm = ({ setToken }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const client = useApolloClient()
-
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
       dispatch(
         setNotification(`Login error ${error.graphQLErrors[0].message}`, 5)
       )
-
-      // setError(error.graphQLErrors[0].message)
     },
   })
 
@@ -29,6 +24,8 @@ const LoginForm = ({ setToken }) => {
       const token = result.data.login.value
       setToken(token)
       localStorage.setItem('book-user-token', token)
+      dispatch(setNotification(` LogIn successfully .`, 5))
+      navigate('/favouriteGenre')
     }
   }, [result.data]) // eslint-disable-line
 
@@ -36,18 +33,11 @@ const LoginForm = ({ setToken }) => {
     event.preventDefault()
 
     login({ variables: { username, password } })
-
-    navigate('/books')
-  }
-  const logout = () => {
-    setToken(null)
-    localStorage.clear()
-    client.resetStore()
   }
 
   return (
     <div>
-      <button onClick={logout}>logout</button>
+      <h2>Login Form</h2>
 
       <form onSubmit={submit}>
         <div>

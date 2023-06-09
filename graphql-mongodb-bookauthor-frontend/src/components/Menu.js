@@ -6,12 +6,13 @@ import Authors from './Authors'
 import Books from './Books'
 import AddNewBookForm from './AddNewBookForm'
 import Home from './Home'
+import Recommended from './Recommended'
+
+import Logout from './Logout'
 import Footer from './Footer'
 
 import LoginForm from './LoginForm'
 import SampleFlex from './SampleFlex'
-
-import { useApolloClient } from '@apollo/client'
 
 import { useSelector } from 'react-redux'
 
@@ -29,30 +30,17 @@ const Navigation = styled.div`
 const Menu = () => {
   const [token, setToken] = useState(null)
   const notification = useSelector((state) => state.notification)
-  const client = useApolloClient()
-
-  if (!token) {
-    return (
-      <div>
-        <h2>Login</h2>
-        <LoginForm setToken={setToken} />
-      </div>
-    )
-  }
-
-  const logout = () => {
-    setToken(null)
-    localStorage.clear()
-    client.resetStore()
-  }
 
   return (
     <div id='nav_bar'>
-      {/* <button onClick={logout}>logout</button> */}
       <Page>
         <Navigation>
           <Link className='link' to='/'>
             Home
+          </Link>
+
+          <Link className='link' to='/favouriteGenre'>
+            Recommend
           </Link>
 
           <Link className='link' to='/authors'>
@@ -63,24 +51,36 @@ const Menu = () => {
             Books
           </Link>
           <Link className='link' to='/create'>
-            Add Book
+            AddBook
           </Link>
+
+          {token ? (
+            <Link className='link' id='logout' to='/logout'>
+              LogOut
+            </Link>
+          ) : (
+            <Link className='link' id='login' to='/login'>
+              LogIn
+            </Link>
+          )}
         </Navigation>
 
         {notification && <Notification />}
 
-        <button id='logOut' onClick={logout}>
-          Log Out
-        </button>
-
         <Routes>
           <Route path='/' element={<Home />} />
+
+          <Route path='/favouriteGenre' element={<Recommended />} />
+
           <Route path='/authors' element={<Authors />} />
 
           <Route path='/books' element={<Books />} />
 
           <Route path='/create' element={<AddNewBookForm />} />
-          {/* <Route onClick={logout} /> */}
+
+          <Route path='/logout' element={<Logout setToken={setToken} />} />
+
+          <Route path='/login' element={<LoginForm setToken={setToken} />} />
         </Routes>
       </Page>
       <Footer />
