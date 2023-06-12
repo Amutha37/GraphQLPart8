@@ -8,7 +8,7 @@ const LogOut = ({ setToken }) => {
   setToken(null)
   localStorage.clear()
   client.resetStore()
-  // navigate('/')
+  navigate('/')
 }
 
 export default LogOut

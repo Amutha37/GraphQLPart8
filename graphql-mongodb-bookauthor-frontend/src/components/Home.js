@@ -5,8 +5,7 @@ const Home = () => (
     <h2>Book List App</h2>
 
     <p>
-      {`You can now view book list and view them by genre. 
-Please logIn to add new book and edit author list.`}
+      {`You can now view book list by genre. User must log in  to add new book and edit author list.`}
     </p>
   </div>
 )

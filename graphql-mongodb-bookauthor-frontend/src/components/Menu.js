@@ -43,16 +43,18 @@ const Menu = () => {
             Recommend
           </Link>
 
+          <Link className='link' to='/books'>
+            Books
+          </Link>
           <Link className='link' to='/authors'>
             Authors
           </Link>
 
-          <Link className='link' to='/books'>
-            Books
-          </Link>
-          <Link className='link' to='/create'>
-            AddBook
-          </Link>
+          {token && (
+            <Link className='link' to='/create'>
+              AddBook
+            </Link>
+          )}
 
           {token ? (
             <Link className='link' id='logout' to='/logout'>
@@ -72,7 +74,7 @@ const Menu = () => {
 
           <Route path='/favouriteGenre' element={<Recommended />} />
 
-          <Route path='/authors' element={<Authors />} />
+          <Route path='/authors' element={<Authors token={token} />} />
 
           <Route path='/books' element={<Books />} />
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
-import { LOGIN } from '../queries'
+import { LOGIN } from '../queries1'
 import { useNavigate } from 'react-router-dom'
 
 const LoginForm = ({ setToken }) => {
@@ -24,7 +24,7 @@ const LoginForm = ({ setToken }) => {
       const token = result.data.login.value
       setToken(token)
       localStorage.setItem('book-user-token', token)
-      dispatch(setNotification(` LogIn successfully .`, 5))
+      dispatch(setNotification(` Loged In successfully .`, 5))
       navigate('/favouriteGenre')
     }
   }, [result.data]) // eslint-disable-line

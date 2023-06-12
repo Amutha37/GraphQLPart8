@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
-import { USER, ALL_BOOKS } from '../queries'
+import { USER, ALL_BOOKS } from '../queries1'
 
 const Recommended = () => {
   const booksResult = useQuery(ALL_BOOKS)
@@ -22,7 +22,9 @@ const Recommended = () => {
     'booksResult',
     booksResult,
     'books',
-    books
+    books,
+    'currentUser',
+    currentUser
   )
   // check for authors favourite genre
 

@@ -52,6 +52,10 @@ npm i --save react-select
 npm install styled-components
 ```
 
+```
+npm install graphql-ws
+```
+
 </details>
 
 <details>

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { ALL_AUTHORS } from '../queries'
+import { ALL_AUTHORS } from '../queries1'
 
 import ChangeAuthorBirthYear from './ChangeAuthorBirthYear'
 
-const Authors = (token) => {
+const Authors = ({ token }) => {
   const result = useQuery(ALL_AUTHORS)
 
   if (result.loading) {
@@ -35,7 +35,6 @@ const Authors = (token) => {
       </table>
       {/* birth year change form  */}
       {token && <ChangeAuthorBirthYear allAuthors={authors} />}
-      {/* <ChangeAuthorBirthYear allAuthors={authors} /> */}
     </div>
   )
 }

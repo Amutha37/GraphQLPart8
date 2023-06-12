@@ -49,8 +49,8 @@ const Books = () => {
             <th>Author</th>
             <th>Published</th>
           </tr>
-          {bookList.map((a) => (
-            <tr key={a.title}>
+          {bookList.map((a, index) => (
+            <tr key={index}>
               <td>{a.title}</td>
               <td>{a.author.name}</td>
               <td>{a.published}</td>

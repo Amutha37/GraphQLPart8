@@ -10,6 +10,7 @@ import styled from 'styled-components'
 
 import { useMutation } from '@apollo/client'
 import { CREATE_BOOK, ALL_BOOKS, ALL_AUTHORS } from '../queries'
+import { updateCache } from '../App'
 
 const Button = styled.button`
   background: Bisque;
@@ -36,10 +37,10 @@ const AddNewBookForm = () => {
   const { reset: resetPublished, ...published } = useField('text')
 
   const [genre, setGenre] = useState('')
-  const [genres, setGenres] = useState([''])
+  const [genres, setGenres] = useState([])
 
   const [createBook] = useMutation(CREATE_BOOK, {
-    refetchQueries: [{ query: ALL_BOOKS, ALL_AUTHORS }],
+    refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }],
     onError: (error) => {
       console.log('Error', error)
 
@@ -47,14 +48,15 @@ const AddNewBookForm = () => {
       navigate('/create')
     },
     update: (cache, response) => {
-      console.log('response', response)
-      cache.updateQuery({ query: ALL_BOOKS }, ({ allBooks }) => {
-        return {
-          allBooks: allBooks.concat(response.data.addBook),
-        }
-      })
+      console.log('responseupdate', response)
+      updateCache(cache, { query: ALL_BOOKS }, response.data.addBook)
+      // cache.updateQuery({ query: ALL_BOOKS }, ({ allBooks }) => {
+      //   return {
+      //     allBooks: allBooks.concat(response.data.addBook),
+      //   }
+      // })
 
-      dispatch(setNotification(`New book list successfully added.`, 5))
+      // dispatch(setNotification(`New book list successfully added.`, 5))
       navigate('/books')
       resetTitle()
       resetAuthor()
