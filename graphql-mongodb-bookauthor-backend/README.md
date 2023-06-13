@@ -1,4 +1,3 @@
-
 <h1 align="center"> $\textcolor{orange}{GraphQL Project}$
 </h1>
 
@@ -29,6 +28,24 @@ npm install mongoose dotenv
 
 ```
 npm install jsonwebtoken
+```
+
+### For using subscriber option
+
+```
+npm install express cors
+```
+
+\*\*\* First, we have to install two packages for adding subscriptions to GraphQL and a Node.js WebSocket library:
+
+```
+npm install graphql-ws ws @graphql-tools/schema
+```
+
+### With subscriptions, the communication happens using the publish-subscribe principle utilizing the object PubSub.
+
+```
+npm install graphql-subscriptions
 ```
 
 start server :
