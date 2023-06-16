@@ -298,8 +298,10 @@ const resolvers = {
         })
       }
 
+      const userr = await User.findOne({ username: args.username })
+
       const userForToken = {
-        username: user.username,
+        username: userr.username,
         id: user._id,
       }
 

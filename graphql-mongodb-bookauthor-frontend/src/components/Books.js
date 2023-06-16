@@ -2,41 +2,30 @@ import React, { useState } from 'react'
 
 import { useQuery } from '@apollo/client'
 
-import { ALL_BOOKS } from '../queries'
+import { ALL_BOOKS } from '../graphql/queries'
+
+let didInit = false
 
 const Books = () => {
-  const [selectedGenre, setSelectedGenre] = useState('All Genres')
-  const [filteredByGenreBooks, setFilteredByGenreBooks] = useState([])
-  const result = useQuery(ALL_BOOKS)
+  const [selectedGenre, setSelectedGenre] = useState()
+  const [uniqueGenres, setUniqueGenres] = useState([])
 
-  if (!result) return null
+  const { data, loading, error } = useQuery(ALL_BOOKS, {
+    variables: { genre: selectedGenre },
+    pollInterval: 500,
+  })
 
-  if (result.loading) {
-    return <div id='loading'>loading...</div>
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error :(</p>
+
+  if (!didInit) {
+    didInit = true
+    let allGenres = data.allBooks.flatMap((b) => b.genres).concat('All Genres')
+    //  collect unique genre from the list allgenres
+    setUniqueGenres([...new Set(allGenres)])
   }
 
-  console.log('result BOOKS', result)
-  const books = result.data.allBooks
-
-  // collect all the unique genres
-
-  let allGenres = books.flatMap((b) => b.genres).concat('All Genres')
-  //  collect unique genre from the list allgenres
-  let uniqueGenres = [...new Set(allGenres)]
-
-  // handle selected genre
-  const handleSelectedGenre = (genre) => {
-    setSelectedGenre(genre)
-
-    setFilteredByGenreBooks(
-      books.filter((book) => {
-        // check for genre only
-        return book.genres.includes(genre)
-      })
-    )
-  }
-
-  let bookList = selectedGenre === 'All Genres' ? books : filteredByGenreBooks
+  let bookList = data.allBooks
 
   return (
     <div>
@@ -61,7 +50,12 @@ const Books = () => {
       <div id='genresList'>
         <h4>View by Genre</h4>
         {uniqueGenres.map((genre) => (
-          <button key={genre} onClick={() => handleSelectedGenre(genre)}>
+          <button
+            key={genre}
+            onClick={() =>
+              setSelectedGenre(genre === 'All Genres' ? null : genre)
+            }
+          >
             {genre}
           </button>
         ))}

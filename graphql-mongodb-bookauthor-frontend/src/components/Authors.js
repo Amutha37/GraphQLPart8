@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { ALL_AUTHORS } from '../queries1'
+import { ALL_AUTHORS } from '../graphql/queries'
 
 import ChangeAuthorBirthYear from './ChangeAuthorBirthYear'
 

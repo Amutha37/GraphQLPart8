@@ -91,7 +91,11 @@ form {
   color: Yellow;
 }
 #logout {
+  border: none;
   color: red;
+
+  background: BurlyWood;
+  font-size: 1rem;
 }
 
 #login {

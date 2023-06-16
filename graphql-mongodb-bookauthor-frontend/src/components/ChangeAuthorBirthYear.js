@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 
-import { EDIT_BIRTH } from '../queries1'
+import { EDIT_BIRTH } from '../graphql/queries'
 
 import styled from 'styled-components'
 import Select from 'react-select'

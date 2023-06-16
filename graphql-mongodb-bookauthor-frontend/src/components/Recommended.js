@@ -1,37 +1,32 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { USER, ALL_BOOKS } from '../queries1'
-
+import { USER, ALL_BOOKS } from '../graphql/queries'
 const Recommended = () => {
-  const booksResult = useQuery(ALL_BOOKS)
-  const userResult = useQuery(USER)
+  const { data, loading, error } = useQuery(ALL_BOOKS, {
+    pollInterval: 500,
+  })
 
-  if (booksResult.loading || userResult.loading) {
-    console.log('imhere loading')
+  const userResult = useQuery(USER, {
+    pollInterval: 100,
+  })
+
+  if (loading) {
     return <div id='loading'>loading...</div>
   }
-  console.log('userResult', userResult, 'booksResult', booksResult)
+  if (userResult.loading) {
+    return <div id='loading'>loading...</div>
+  }
+
+  if (!userResult.data.me.favouriteGenre) return null
   const myFavourite = userResult.data.me.favouriteGenre
-  const currentUser = userResult.data.me.username
-  const books = booksResult.data.allBooks
-  console.log(
-    'userResult',
-    userResult,
-    myFavourite,
-    userResult.data.me.username,
-    'booksResult',
-    booksResult,
-    'books',
-    books,
-    'currentUser',
-    currentUser
-  )
+
+  const books = data.allBooks
+
   // check for authors favourite genre
 
   const favouriteGenresBooks = books.filter((book) =>
     book.genres.includes(myFavourite)
   )
-  console.log('favourtieGenresBooks', favouriteGenresBooks)
 
   return (
     <div>

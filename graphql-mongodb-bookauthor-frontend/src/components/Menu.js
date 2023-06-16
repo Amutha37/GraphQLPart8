@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import Notification from './Notification'
 import styled from 'styled-components'
 import Authors from './Authors'
+// import Books from './Books'
 import Books from './Books'
 import AddNewBookForm from './AddNewBookForm'
 import Home from './Home'
@@ -15,6 +16,8 @@ import LoginForm from './LoginForm'
 import SampleFlex from './SampleFlex'
 
 import { useSelector } from 'react-redux'
+import { useApolloClient } from '@apollo/client'
+import { useNavigate } from 'react-router-dom'
 
 const Page = styled.div`
   padding: 1em;
@@ -29,18 +32,42 @@ const Navigation = styled.div`
 
 const Menu = () => {
   const [token, setToken] = useState(null)
-  const notification = useSelector((state) => state.notification)
 
+  const notification = useSelector((state) => state.notification)
+  const client = useApolloClient()
+  const navigate = useNavigate()
+
+  const renderLink = () => {
+    return (
+      <>
+        <Link className='link' to='/recommend'>
+          Recommended
+        </Link>
+        <Link className='link' to='/create'>
+          AddBook
+        </Link>
+
+        {/* <Link className='link' id='logout' to='/logout'>
+          LogOut
+        </Link> */}
+      </>
+    )
+  }
+
+  console.log('token', token)
+
+  const logout = () => {
+    setToken(null)
+    localStorage.clear()
+    client.resetStore()
+    navigate('/')
+  }
   return (
     <div id='nav_bar'>
       <Page>
         <Navigation>
           <Link className='link' to='/'>
             Home
-          </Link>
-
-          <Link className='link' to='/favouriteGenre'>
-            Recommend
           </Link>
 
           <Link className='link' to='/books'>
@@ -50,20 +77,17 @@ const Menu = () => {
             Authors
           </Link>
 
-          {token && (
-            <Link className='link' to='/create'>
-              AddBook
-            </Link>
-          )}
+          {token && renderLink()}
 
-          {token ? (
-            <Link className='link' id='logout' to='/logout'>
-              LogOut
-            </Link>
-          ) : (
+          {!token && (
             <Link className='link' id='login' to='/login'>
               LogIn
             </Link>
+          )}
+          {token && (
+            <button id='logout' onClick={logout}>
+              Logout
+            </button>
           )}
         </Navigation>
 
@@ -72,15 +96,15 @@ const Menu = () => {
         <Routes>
           <Route path='/' element={<Home />} />
 
-          <Route path='/favouriteGenre' element={<Recommended />} />
+          <Route path='/recommend' element={<Recommended />} />
 
           <Route path='/authors' element={<Authors token={token} />} />
 
           <Route path='/books' element={<Books />} />
 
           <Route path='/create' element={<AddNewBookForm />} />
-
-          <Route path='/logout' element={<Logout setToken={setToken} />} />
+          {/* 
+          <Route path='/logout' element={<Logout setToken={setToken} />} /> */}
 
           <Route path='/login' element={<LoginForm setToken={setToken} />} />
         </Routes>

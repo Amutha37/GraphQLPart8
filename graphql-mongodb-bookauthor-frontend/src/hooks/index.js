@@ -18,3 +18,22 @@ export const useField = (type) => {
     reset,
   }
 }
+
+export const usePasswordField = (type) => {
+  const [value, setValue] = useState('secret')
+
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
+
+  const reset = () => {
+    setValue('')
+  }
+
+  return {
+    type,
+    value,
+    onChange,
+    reset,
+  }
+}

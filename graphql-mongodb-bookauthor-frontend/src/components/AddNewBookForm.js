@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { useMutation } from '@apollo/client'
-import { CREATE_BOOK, ALL_BOOKS, ALL_AUTHORS } from '../queries'
+import { CREATE_BOOK, ALL_BOOKS, ALL_AUTHORS } from '../graphql/queries'
 import { updateCache } from '../App'
 
 const Button = styled.button`
@@ -45,10 +45,10 @@ const AddNewBookForm = () => {
       console.log('Error', error)
 
       dispatch(setNotification(`ERROR: ${error}`, 5))
-      navigate('/create')
+      // navigate('/create')
     },
     update: (cache, response) => {
-      console.log('responseupdate', response)
+      // console.log('responseupdate', response)
       updateCache(cache, { query: ALL_BOOKS }, response.data.addBook)
       // cache.updateQuery({ query: ALL_BOOKS }, ({ allBooks }) => {
       //   return {
@@ -75,7 +75,7 @@ const AddNewBookForm = () => {
       genres: genres.length > 0 ? genres : [],
     }
 
-    console.log('ADD BOOK...', newBookDetails)
+    // console.log('ADD BOOK...', newBookDetails)
 
     createBook({ variables: newBookDetails })
   }
