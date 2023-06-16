@@ -43,9 +43,9 @@ const resolvers = {
 
     // current user
     me: (root, args, context) => {
-      if (context.currentUser) {
-        return context.currentUser
-      }
+      // if (context.currentUser) {
+      return context.currentUser
+      // }
     },
   },
 
@@ -277,10 +277,7 @@ const resolvers = {
         )
       }
 
-      const user = new User({
-        username: args.username,
-        favouriteGenre: args.favouriteGenre,
-      })
+      const user = new User({ ...args })
 
       return user.save().catch((error) => {
         throw new GraphQLError('Creating the user failed', {

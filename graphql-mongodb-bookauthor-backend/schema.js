@@ -40,7 +40,7 @@ bookCounts: Int!
 
 type User {
   username: String!
-  favouriteGenre: String
+  favouriteGenre: String!
   id: ID!
 }
 
@@ -49,11 +49,11 @@ type Token {
 }
 
   type Query {  
-allBooks(author: String, genre: String,): [Book!]
+allBooks(author: String, genre: String,): [Book!]!
  allAuthors: [Author!]!
 bookCount: Int!
 authorCount: Int!
-  me:  User!
+  me:  User
 }
 
  type Subscription {

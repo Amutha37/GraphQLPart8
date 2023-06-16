@@ -132,4 +132,13 @@ iii) author and genre
 
 * Added validation for published year and year born.
 
+`8.16:` user and logging in
+Add user management to your application. Expand the schema like so:
+
+`8.23:` Subscriptions - server
+Do a backend implementation for subscription bookAdded, which returns the details of all new books to its subscribers.
+
+`8.24:` Subscriptions - client, part 1
+Start using subscriptions in the client, and subscribe to bookAdded. When new books are added, notify the user. Any method works. For example, you can use the window.alert function.
+
 </details>
