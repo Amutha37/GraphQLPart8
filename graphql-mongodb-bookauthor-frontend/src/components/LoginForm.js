@@ -2,12 +2,10 @@ import { useEffect } from 'react'
 // state management
 import { useField } from '../hooks'
 import { usePasswordField } from '../hooks'
-
-//
 import { useMutation } from '@apollo/client'
 import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
-import { LOGIN } from '../graphql/queries'
+import { LOGIN } from '../graphql/mutations'
 import { useNavigate } from 'react-router-dom'
 // style
 import styled from 'styled-components'
@@ -47,7 +45,7 @@ const LoginForm = ({ setToken }) => {
       setToken(token)
       localStorage.setItem('book-user-token', token)
       dispatch(setNotification(` Loged In successfully .`, 5))
-      navigate('/authors')
+      navigate('/books')
     }
   }, [result.data]) // eslint-disable-line
 

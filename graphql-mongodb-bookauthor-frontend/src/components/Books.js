@@ -4,12 +4,10 @@ import { useQuery } from '@apollo/client'
 
 import { ALL_BOOKS } from '../graphql/queries'
 
-let didInit = false
-
 const Books = () => {
   const [selectedGenre, setSelectedGenre] = useState()
-  const [uniqueGenres, setUniqueGenres] = useState([])
 
+  const result = useQuery(ALL_BOOKS)
   const { data, loading, error } = useQuery(ALL_BOOKS, {
     variables: { genre: selectedGenre },
     pollInterval: 500,
@@ -18,12 +16,12 @@ const Books = () => {
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error :(</p>
 
-  if (!didInit) {
-    didInit = true
-    let allGenres = data.allBooks.flatMap((b) => b.genres).concat('All Genres')
-    //  collect unique genre from the list allgenres
-    setUniqueGenres([...new Set(allGenres)])
-  }
+  let allGenres = result.data.allBooks
+    .flatMap((b) => b.genres)
+    .concat('All Genres')
+
+  //  collect unique genre from the list allgenres
+  let uniqueGenres = [...new Set(allGenres)]
 
   let bookList = data.allBooks
 

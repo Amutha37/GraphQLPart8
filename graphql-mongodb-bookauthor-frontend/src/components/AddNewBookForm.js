@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { useMutation } from '@apollo/client'
-import { CREATE_BOOK, ALL_BOOKS, ALL_AUTHORS } from '../graphql/queries'
+import { ALL_BOOKS, ALL_AUTHORS } from '../graphql/queries'
+import { CREATE_BOOK } from '../graphql/mutations'
 import { updateCache } from '../App'
 
 const Button = styled.button`
@@ -45,10 +46,8 @@ const AddNewBookForm = () => {
       console.log('Error', error)
 
       dispatch(setNotification(`ERROR: ${error}`, 5))
-      // navigate('/create')
     },
     update: (cache, response) => {
-      // console.log('responseupdate', response)
       updateCache(cache, { query: ALL_BOOKS }, response.data.addBook)
       // cache.updateQuery({ query: ALL_BOOKS }, ({ allBooks }) => {
       //   return {
@@ -74,8 +73,6 @@ const AddNewBookForm = () => {
       published: Number(published.value),
       genres: genres.length > 0 ? genres : [],
     }
-
-    // console.log('ADD BOOK...', newBookDetails)
 
     createBook({ variables: newBookDetails })
   }
@@ -117,14 +114,14 @@ const AddNewBookForm = () => {
             value={genre}
             onChange={({ target }) => setGenre(target.value)}
           />
-          <button onClick={addGenre} type='button'>
-            add genre
+          <button onClick={addGenre} type='button' id='add_genre'>
+            Add Genre
           </button>
         </div>
 
         {genres && <div>Genres: {genres.join()}</div>}
 
-        <Button type='submit'>ADD </Button>
+        <Button type='submit'>Submit </Button>
         <TomatoButton onClick={handleReset}>Reset</TomatoButton>
       </form>
     </div>

@@ -8,8 +8,6 @@ import Books from './Books'
 import AddNewBookForm from './AddNewBookForm'
 import Home from './Home'
 import Recommended from './Recommended'
-
-import Logout from './Logout'
 import Footer from './Footer'
 
 import LoginForm from './LoginForm'
@@ -46,15 +44,9 @@ const Menu = () => {
         <Link className='link' to='/create'>
           AddBook
         </Link>
-
-        {/* <Link className='link' id='logout' to='/logout'>
-          LogOut
-        </Link> */}
       </>
     )
   }
-
-  console.log('token', token)
 
   const logout = () => {
     setToken(null)

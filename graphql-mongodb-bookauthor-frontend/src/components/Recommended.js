@@ -10,6 +10,8 @@ const Recommended = () => {
     pollInterval: 100,
   })
 
+  if (error) return <p>Error :()</p>
+
   if (loading) {
     return <div id='loading'>loading...</div>
   }

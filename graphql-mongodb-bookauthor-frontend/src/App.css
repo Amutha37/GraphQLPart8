@@ -93,7 +93,6 @@ form {
 #logout {
   border: none;
   color: red;
-
   background: BurlyWood;
   font-size: 1rem;
 }
@@ -104,4 +103,9 @@ form {
 #favour {
   font-weight: 700;
   color: green;
+}
+#add_genre {
+  margin-left: 1rem;
+  color: white;
+  background-color: black;
 }
