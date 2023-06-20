@@ -81,6 +81,8 @@ npm install graphql-ws
 
 - Authors and Books views are kept up to date after a new book is added.
 
+![Screenshot 2023-06-20 at 10 11 05 am](https://github.com/Amutha37/GraphQLPart8/assets/67087939/e3ab0338-6afd-4b09-86de-e3c43bcc9089)
+
 `8.11:` Editing author's birth year
 
 - Implement a possibility to change and set authors birth year.
@@ -92,6 +94,8 @@ npm install graphql-ws
 `8.12:` Changing birth year
 
 - Birth year can be changed only for existing authors using drop-down selectio box.
+
+![Screenshot 2023-06-19 at 2 34 39 pm](https://github.com/Amutha37/GraphQLPart8/assets/67087939/546419fd-748b-4035-966d-9e09929de11e)
 
 \*\* Continue of fronend after implementing database for backend
 
@@ -109,9 +113,13 @@ npm install graphql-ws
 
 - Implement filtering of the book by genre selection.
 
+![BookListbygenre selection](https://github.com/Amutha37/GraphQLPart8/assets/67087939/550203be-5e82-4edf-8878-0585d6f2e1d8)
+
 `8.20` Books by genre, part 2
 
 - Implement a view which shows all the books based on the logged-in user's favourite genre.
+
+![Screenshot 2023-06-19 at 2 30 44 pm](https://github.com/Amutha37/GraphQLPart8/assets/67087939/ba80f17a-0987-4743-bec9-1e0adc97a2ce)
 
 `8.25:` Subscriptions - client, part 2
 Keep the application's book view updated when the server notifies about new books (you can ignore the author view!). You can test your implementation by opening the app in two browser tabs and adding a new book in one tab. Adding the new book should update the view in both tabs.

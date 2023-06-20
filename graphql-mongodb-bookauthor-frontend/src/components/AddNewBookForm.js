@@ -93,6 +93,7 @@ const AddNewBookForm = () => {
 
   return (
     <div>
+      <h2>Add New Book</h2>
       <form onSubmit={handleSubmit}>
         <div>
           Author :
