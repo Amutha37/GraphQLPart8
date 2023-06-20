@@ -49,9 +49,9 @@ title
 <details>
 <summary>
 
-# $\color{cyan}{GraphQL- Part8 }$
+# $\color{cyan}{GraphQL - Part8 }$
 
-# $\color{white}{- repository order list}$
+# $\color{white}{(repository\ order\ list)}$
 
 </summary>
 
