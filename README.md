@@ -1,51 +1,65 @@
-# GraphQLPart8
-
-GraphQL Part8a
-
+<h1 align="center"> $\textcolor{orange}{Book List\ Project\ Backend\ GraphQL\ Mongo DB }$
+</h1>
 
 <details>
 <summary>
 
-### $\color{cyan}{Exercises}$
+# $\color{cyan}{GraphQL - philosophy }$
 
  </summary>
 
-`8.1:` The number of books and authors
+\*\*\* Copyright of University Helsinki Fullstack note Part8a
 
-- Implement queries bookCount and authorCount which return the number of books and the number of authors.
-  `8.2:` All books
-- Implement query allBooks, which returns the details of all books.
+In recent years, GraphQL, developed by Facebook, has become popular for communication between web applications and servers.
 
-`8.3:` All authors
+The GraphQL philosophy is very different from REST. REST is resource-based. Every resource, for example a user, has its own address which identifies it, for example /users/10. All operations done to the resource are done with HTTP requests to its URL. The action depends on the HTTP method used.
 
-- Implement query allAuthors, which returns the details of all authors. The response should include a field bookCount containing the number of books the author has written.
+The resource-basedness of REST works well in most situations. However, it can be a bit awkward sometimes.
 
-`8.4:` Books of an author
+Let's consider the following example: our bloglist application contains some kind of social media functionality, and we would like to show a list of all the blogs that were added by users who have commented on any of the blogs we follow.
 
-- Modify the allBooks query so that a user can give an optional parameter author. The response should include only books written by that author.
+If the server implemented a REST API, we would probably have to do multiple HTTP requests from the browser before we had all the data we wanted. The requests would also return a lot of unnecessary data, and the code on the browser would probably be quite complicated.
 
-`8.5:` Books by genre
+If this was an often-used functionality, there could be a REST endpoint for it. If there were a lot of these kinds of scenarios however, it would become very laborious to implement REST endpoints for all of them.
 
-- Modify the allBooks query so that a user can give an optional parameter genre or genre and author.
+A GraphQL server is well-suited for these kinds of situations.
 
-Added only author as an option which will work similar to Exercise8.4
+The main principle of GraphQL is that the code on the browser forms a query describing the data wanted, and sends it to the API with an HTTP POST request. Unlike REST, all GraphQL queries are sent to the same address, and their type is POST.
 
-i) genre
-ii) autor
-iii) author and genre
+The data described in the above scenario could be fetched with (roughly) the following query:
 
-`8.6:` Adding a book
+query FetchBlogsQuery {
+user(username: "mluukkai") {
+followedUsers {
+blogs {
+comments {
+user {
+blogs {
+title
+}
+}
+}
+}
+}
+}
+}
 
-- Implement mutation `addBook` to add new book.
+</details>
 
-* The mutation works even if the author is not already saved to the server or author data list.
+<details>
 
-- If the author is not yet saved to the server, a new author is added to the system. Born year will be null for now.
+# $\color{cyan}{GraphQL- Part8}$
 
-`8.7:` Updating the birth year of an author
+<summary>
 
-- Implement mutation `editAuthor`, which will be used for changing the birth year or `born:` of the author.
+# $\color{green}{GraphQL- Part8a}$ - bookauthor-backend
 
-- If the author is not in the system, `null` is returned:
+# $\color{green}{GraphQL- Part8b}$ - bookauthor-frontend
+
+# $\color{green}{GraphQL- Part8c}$ - graphql-mongodb-bookauthor-backend
+
+# $\color{green}{GraphQL- Part8d}$ - graphql-mongodb-bookauthor-frontend
+
+# $\color{green}{GraphQL- Part8d}$ - graphql-mongodb-bookauthor-front and back end work on subsciption
 
 </details>
