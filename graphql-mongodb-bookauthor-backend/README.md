@@ -1,4 +1,4 @@
-<h1 align="center"> $\textcolor{orange}{GraphQL Project}$
+<h1 align="center"> $\textcolor{orange}{Book List\ Project\ Backend\ GraphQL\ Mongo DB }$
 </h1>
 
 # $\color{cyan}{Part8a}$
