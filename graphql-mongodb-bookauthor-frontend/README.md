@@ -79,9 +79,11 @@ npm install graphql-ws
 
 - Implement a possibility to add new books.
 
+  ![Screenshot 2023-06-20 at 10 29 03 am](https://github.com/Amutha37/GraphQLPart8/assets/67087939/806d9d00-a1db-4229-a98d-787be760f4bf)
+
 - Authors and Books views are kept up to date after a new book is added.
 
-![Screenshot 2023-06-20 at 10 11 05 am](https://github.com/Amutha37/GraphQLPart8/assets/67087939/e3ab0338-6afd-4b09-86de-e3c43bcc9089)
+![Screenshot 2023-06-20 at 10 30 37 am](https://github.com/Amutha37/GraphQLPart8/assets/67087939/7b18e8c4-99f3-47c3-bc70-4a2c269e5048)
 
 `8.11:` Editing author's birth year
 

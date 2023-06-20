@@ -55,7 +55,7 @@ const AddNewBookForm = () => {
       //   }
       // })
 
-      // dispatch(setNotification(`New book list successfully added.`, 5))
+      dispatch(setNotification(`New book list successfully added.`, 5))
       navigate('/books')
       resetTitle()
       resetAuthor()
