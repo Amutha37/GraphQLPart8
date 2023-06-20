@@ -4,8 +4,12 @@
 # $\color{cyan}{Part8c}$
 
 <details>
-Start Server :
+
 <summary>
+
+### Start Server :
+
+<details>
 
 ```
 node Exercise(8.7).js
@@ -14,8 +18,6 @@ node Exercise(8.7).js
 Apollo server runs in development mode `http://localhost:4000`
 
 This takes us to `Apollo Studio Explorer`
-
-<details>
 
 <summary>
 
