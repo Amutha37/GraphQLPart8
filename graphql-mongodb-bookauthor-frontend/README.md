@@ -9,7 +9,7 @@
 
 ### Start Server :
 
-<details>
+</summary>
 
 ```
 node Exercise(8.7).js
@@ -18,6 +18,9 @@ node Exercise(8.7).js
 Apollo server runs in development mode `http://localhost:4000`
 
 This takes us to `Apollo Studio Explorer`
+
+</details>
+<details>
 
 <summary>
 
