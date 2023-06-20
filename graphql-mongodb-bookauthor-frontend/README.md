@@ -1,4 +1,4 @@
-<h1 align="center"> $\textcolor{orange}{Book List\ Project\ Frontend GraphQL Mongo DB }$
+<h1 align="center"> $\textcolor{orange}{Book List\ Project\ Frontend\ GraphQL\ Mongo DB }$
 </h1>
 
 # $\color{cyan}{Part8c}$
