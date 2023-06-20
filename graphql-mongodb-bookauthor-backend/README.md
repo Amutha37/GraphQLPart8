@@ -1,146 +1,67 @@
 <h1 align="center"> $\textcolor{orange}{Book List\ Project\ Backend\ GraphQL\ Mongo DB }$
 </h1>
 
-# $\color{cyan}{Part8a}$
-
 <details>
 <summary>
 
-### $\color{cyan}{Dependecies}$
+# $\color{cyan}{GraphQL - philosophy }$
 
  </summary>
 
-```
-npm install @apollo/server graphql
-```
+\*\*\* Copyright of University Helsinki Fullstack note Part8a
 
-```
-npm install mongoose
-```
+In recent years, GraphQL, developed by Facebook, has become popular for communication between web applications and servers.
 
-```
-npm install mongoose-unique-validator
-```
+The GraphQL philosophy is very different from REST. REST is resource-based. Every resource, for example a user, has its own address which identifies it, for example /users/10. All operations done to the resource are done with HTTP requests to its URL. The action depends on the HTTP method used.
 
-```
-npm install mongoose dotenv
-```
+The resource-basedness of REST works well in most situations. However, it can be a bit awkward sometimes.
 
-```
-npm install jsonwebtoken
-```
+Let's consider the following example: our bloglist application contains some kind of social media functionality, and we would like to show a list of all the blogs that were added by users who have commented on any of the blogs we follow.
 
-### For using subscriber option
+If the server implemented a REST API, we would probably have to do multiple HTTP requests from the browser before we had all the data we wanted. The requests would also return a lot of unnecessary data, and the code on the browser would probably be quite complicated.
 
-```
-npm install express cors
-```
+If this was an often-used functionality, there could be a REST endpoint for it. If there were a lot of these kinds of scenarios however, it would become very laborious to implement REST endpoints for all of them.
 
-\*\*\* First, we have to install two packages for adding subscriptions to GraphQL and a Node.js WebSocket library:
+A GraphQL server is well-suited for these kinds of situations.
 
-```
-npm install graphql-ws ws @graphql-tools/schema
-```
+The main principle of GraphQL is that the code on the browser forms a query describing the data wanted, and sends it to the API with an HTTP POST request. Unlike REST, all GraphQL queries are sent to the same address, and their type is POST.
 
-### With subscriptions, the communication happens using the publish-subscribe principle utilizing the object PubSub.
+The data described in the above scenario could be fetched with (roughly) the following query:
 
-```
-npm install graphql-subscriptions
-```
-
-start server :
-
-```
-node Exercise(8.X).js
-```
-
-Apollo server runs in development mode `http://localhost:4000`
-
-This takes us to `Apollo Studio Explorer`
+query FetchBlogsQuery {
+user(username: "mluukkai") {
+followedUsers {
+blogs {
+comments {
+user {
+blogs {
+title
+}
+}
+}
+}
+}
+}
+}
 
 </details>
 
 <details>
+
 <summary>
 
-### $\color{cyan}{Exercises8.1 - 8.7}$
+# $\color{cyan}{GraphQL- Part8}$
 
  </summary>
 
-### Before database
+# $\color{green}{GraphQL- Part8a}$ - bookauthor-backend
 
-`8.1:` The number of books and authors
+# $\color{green}{GraphQL- Part8b}$ - bookauthor-frontend
 
-- Implement queries bookCount and authorCount which return the number of books and the number of authors.
+# $\color{green}{GraphQL- Part8c}$ - graphql-mongodb-bookauthor-backend
 
-`8.2:` All books
+# $\color{green}{GraphQL- Part8d}$ - graphql-mongodb-bookauthor-frontend
 
-- Implement query allBooks, which returns the details of all books.
-
-`8.3:` All authors
-
-- Implement query allAuthors, which returns the details of all authors. The response should include a field bookCount containing the number of books the author has written.
-
-`8.4:` Books of an author
-
-- Modify the allBooks query so that a user can give an optional parameter author. The response should include only books written by that author.
-
-`8.5:` Books by genre
-
-- Modify the allBooks query so that a user can give an optional parameter genre or genre and author.
-
-Added only author as an option which will work similar to Exercise8.4
-
-i) genre
-ii) autor
-iii) author and genre
-
-`8.6:` Adding a book
-
-- Implement mutation `addBook` to add new book.
-
-* The mutation works even if the author is not already saved to the server or author data list.
-
-- If the author is not yet saved to the server, a new author is added to the system. Born year will be null for now.
-
-`8.7:` Updating the birth year of an author
-
-- Implement mutation `editAuthor`, which will be used for changing the birth year or `born:` of the author.
-
-- If the author is not in the system, `null` is returned:
-
-</details>
-
-# MongoDB database
-
-<details>
-<summary>
-
-### $\color{cyan}{Exercises 8.13 - 8.16}$
-
- </summary>
-
-`8.13:` Database, part 1
-
-- Library application so that it saves the data to a database
-
-`8.14:` Database, part 2
-
-- Complete the program so that all queries (to get allBooks working with the parameter author and bookCount field of an author object is not required) and mutations work.
-
-`8.15:` Database, part 3
-
-- Database validation errors (e.g. book title or author name being too short) are handled sensibly. Use `GraphQLError` with a suitable error message to be thrown.
-
-* Added validation for published year and year born.
-
-`8.16:` user and logging in
-Add user management to your application. Expand the schema like so:
-
-`8.23:` Subscriptions - server
-Do a backend implementation for subscription bookAdded, which returns the details of all new books to its subscribers.
-
-`8.24:` Subscriptions - client, part 1
-Start using subscriptions in the client, and subscribe to bookAdded. When new books are added, notify the user. Any method works. For example, you can use the window.alert function.
+# $\color{green}{GraphQL- Part8d}$ - graphql-mongodb-bookauthor-front and back end work on subsciption
 
 </details>
