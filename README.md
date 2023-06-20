@@ -47,19 +47,30 @@ title
 </details>
 
 <details>
+<summary>
 
 # $\color{cyan}{GraphQL- Part8}$
 
-<summary>
+</summary>
 
-# $\color{green}{GraphQL- Part8a}$ - bookauthor-backend
+# $\color{aquamarine}{Part8a}$
 
-# $\color{green}{GraphQL- Part8b}$ - bookauthor-frontend
+- bookauthor-backend
 
-# $\color{green}{GraphQL- Part8c}$ - graphql-mongodb-bookauthor-backend
+# $\color{aquamarine}{ Part8b}$
 
-# $\color{green}{GraphQL- Part8d}$ - graphql-mongodb-bookauthor-frontend
+- bookauthor-frontend
 
-# $\color{green}{GraphQL- Part8d}$ - graphql-mongodb-bookauthor-front and back end work on subsciption
+# $\color{aquamarine}{Part8c}$
+
+- graphql-mongodb-bookauthor-backend
+
+# $\color{aquamarine}{Part8d}$
+
+- graphql-mongodb-bookauthor-frontend
+
+# $\color{aquamarine}{Part8d}$
+
+- graphql-mongodb-bookauthor-front and back end work on subsciption
 
 </details>
