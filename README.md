@@ -51,7 +51,7 @@ title
 
 # $\color{cyan}{GraphQL- Part8 }$
 
-# $\color{Yellow}{- repository/ order/ list/}$
+# $\color{white}{- repository order list}$
 
 </summary>
 
